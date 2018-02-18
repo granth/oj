@@ -777,7 +777,7 @@ oj_sparse2(ParseInfo pi) {
 		args[2] = LONG2NUM(len);
 
 		if (Qnil == pi->proc) {
-		    rb_yield_values2(3, args);
+		    rb_yield_values(3, *args, args[1], args[2]);
 		} else {
 #if HAS_PROC_WITH_BLOCK
 		    rb_proc_call_with_block(pi->proc, 3, args, Qnil);
