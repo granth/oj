@@ -17,7 +17,7 @@
 
 #if !HAS_IVAR_HELPERS
 extern int	rb_ivar_count(VALUE hash);
-extern void	rb_ivar_foreach(VALUE hash, int (*cb)(), void *ptr);
+extern void	rb_ivar_foreach(VALUE hash, int (*cb)(), VALUE x);
 #endif
 
 extern void	oj_dump_nil(VALUE obj, int depth, Out out, bool as_ok);
