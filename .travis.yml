@@ -9,12 +9,13 @@ env:
 
 language: ruby
 rvm:
-  - 2.1.10
-  - 2.2.6
-  - 2.3.3
-  - 2.4.2
-  #- 2.5.0
-  - ruby-head
+  #- 2.1.10
+  #- 2.2.6
+  #- 2.3.3
+  #- 2.4.2
+  - 2.5.0
+  - rbx
+  #- ruby-head
 
 gemfile:
   - gemfiles/no_rails.gemfile
