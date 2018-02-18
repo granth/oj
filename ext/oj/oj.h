@@ -48,6 +48,10 @@ enum st_retval {ST_CONTINUE = 0, ST_STOP = 1, ST_DELETE = 2, ST_CHECK};
 #define NINF_VAL	"-3.0e14159265358979323846"
 #define NAN_VAL		"3.3e14159265358979323846"
 
+#if !HAS_ENCODING_SUPPORT || defined(RUBINIUS_RUBY)
+#define rb_eEncodingError	rb_eException
+#endif
+
 typedef enum {
     Yes	   = 'y',
     No	   = 'n',

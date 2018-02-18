@@ -19,10 +19,6 @@
 #include "rails.h"
 #include "encode.h"
 
-#if !HAS_ENCODING_SUPPORT || defined(RUBINIUS_RUBY)
-#define rb_eEncodingError	rb_eException
-#endif
-
 typedef struct _YesNoOpt {
     VALUE	sym;
     char	*attr;

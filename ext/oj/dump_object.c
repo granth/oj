@@ -759,14 +759,16 @@ dump_struct(VALUE obj, int depth, Out out, bool as_ok) {
 	// This is a bit risky as a struct in C ruby is not the same as a Struct
 	// class in interpreted Ruby so length() may not be defined.
 	int	slen = FIX2INT(rb_funcall2(obj, oj_length_id, 0, 0));
+	VALUE	v;
 
 	for (i = 0; i < slen; i++) {
 	    assure_size(out, size);
 	    fill_indent(out, d3);
+	    v = rb_struct_aref(obj, INT2FIX(i))
 	    if (oj_dump_ignore(out->opts, v)) {
 		v = Qnil;
 	    }
-	    oj_dump_obj_val(rb_struct_aref(obj, INT2FIX(i)), d3, out, 0, 0, true);
+	    oj_dump_obj_val(v, d3, out);
 	    *out->cur++ = ',';
 	}
     }
