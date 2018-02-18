@@ -1158,3 +1158,30 @@ oj_dump_ignore(Options opts, VALUE obj) {
     }
     return false;
 }
+
+#if !HAS_IVAR_HELPERS
+int
+rb_ivar_count(VALUE hash) {
+    volatile VALUE	vars = rb_funcall(hash, rb_intern("size"), 0);
+
+    return (int)RARRAY_LEN(vars);
+}
+
+void
+rb_ivar_foreach(VALUE hash, int (*cb)(), void *ptr) {
+    volatile VALUE	vars = rb_funcall2(hash, oj_instance_variables_id, 0, 0);
+    VALUE		*np = RARRAY_PTR(vars);
+    VALUE		value;
+    ID			vid;
+    int			cnt = (int)RARRAY_LEN(vars);
+    int			i;
+
+    for (i = cnt; 0 < i; i--, np++) {
+	vid = rb_to_id(*np);
+	value = rb_ivar_get(hash, vid);
+	if (ST_CONTINUE != cb(vid, value, ptr)) {
+	    break;
+	}
+    }
+}
+#endif

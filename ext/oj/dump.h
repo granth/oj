@@ -15,6 +15,11 @@
 // Extra padding at end of buffer.
 #define BUFFER_EXTRA 10
 
+#if !HAS_IVAR_HELPERS
+extern int	rb_ivar_count(VALUE hash);
+extern void	rb_ivar_foreach(VALUE hash, int (*cb)(), void *ptr);
+#endif
+
 extern void	oj_dump_nil(VALUE obj, int depth, Out out, bool as_ok);
 extern void	oj_dump_true(VALUE obj, int depth, Out out, bool as_ok);
 extern void	oj_dump_false(VALUE obj, int depth, Out out, bool as_ok);
