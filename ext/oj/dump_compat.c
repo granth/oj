@@ -3,6 +3,8 @@
  * All rights reserved.
  */
 
+#include <math.h>
+
 #include "code.h"
 #include "dump.h"
 #include "rails.h"

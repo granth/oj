@@ -15,6 +15,10 @@
 #include "parse.h"
 #include "resolve.h"
 
+#if !HAS_ENCODING_SUPPORT || defined(RUBINIUS_RUBY)
+#define rb_eEncodingError	rb_eException
+#endif
+
 extern void	oj_set_obj_ivar(Val parent, Val kval, VALUE value);
 extern VALUE	oj_parse_xml_time(const char *str, int len); // from object.c
 
