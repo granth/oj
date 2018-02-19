@@ -1161,15 +1161,15 @@ oj_dump_ignore(Options opts, VALUE obj) {
 
 #if !HAS_IVAR_HELPERS
 int
-rb_ivar_count(VALUE hash) {
-    volatile VALUE	vars = rb_funcall(hash, rb_intern("size"), 0);
+rb_ivar_count(VALUE obj) {
+    volatile VALUE	vars = rb_funcall(obj, oj_instance_variables_id, 0);
 
     return (int)RARRAY_LEN(vars);
 }
 
 void
-rb_ivar_foreach(VALUE hash, int (*cb)(), VALUE x) {
-    volatile VALUE	vars = rb_funcall2(hash, oj_instance_variables_id, 0, 0);
+rb_ivar_foreach(VALUE obj, int (*cb)(), VALUE x) {
+    volatile VALUE	vars = rb_funcall(obj, oj_instance_variables_id, 0);
     VALUE		*np = RARRAY_PTR(vars);
     VALUE		value;
     ID			vid;
@@ -1178,7 +1178,7 @@ rb_ivar_foreach(VALUE hash, int (*cb)(), VALUE x) {
 
     for (i = cnt; 0 < i; i--, np++) {
 	vid = rb_to_id(*np);
-	value = rb_ivar_get(hash, vid);
+	value = rb_ivar_get(obj, vid);
 	if (ST_CONTINUE != cb(vid, value, x)) {
 	    break;
 	}
