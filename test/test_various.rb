@@ -409,7 +409,9 @@ class Juice < Minitest::Test
 
   def test_time_neg
     t = Time.parse("1900-01-01 00:18:59 UTC")
+    puts "*** time is #{t} with secsonds of #{t.tv_sec}"
     json = Oj.dump(t, :mode => :custom, :time_format => :unix)
+    puts "*** json is #{json}"
     assert_equal('-2208987661.000000000', json)
   end
 
