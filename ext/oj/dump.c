@@ -359,12 +359,15 @@ oj_dump_time(VALUE obj, Out out, int withZone) {
 #else
     sec = rb_num2ll(rb_funcall2(obj, oj_tv_sec_id, 0, 0));
 #if HAS_NANO_TIME
+    printf("*** has nano time\n");
     nsec = rb_num2ll(rb_funcall2(obj, oj_tv_nsec_id, 0, 0));
 #else
+    printf("*** does not have nano time\n");
     nsec = rb_num2ll(rb_funcall2(obj, oj_tv_usec_id, 0, 0)) * 1000;
 #endif
 #endif
 
+    printf("*** nsec: %lld\n", nsec);
     *b-- = '\0';
     if (withZone) {
 	long	tzsecs = NUM2LONG(rb_funcall2(obj, oj_utc_offset_id, 0, 0));
