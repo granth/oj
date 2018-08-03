@@ -356,12 +356,18 @@ oj_dump_time(VALUE obj, Out out, int withZone) {
 	struct timespec	ts = rb_time_timespec(obj);
 
 	printf("*** timespec %ld %ld\n", (long)ts.tv_sec, (long)ts.tv_nsec);
-	
 	sec = ts.tv_sec;
 	nsec = ts.tv_nsec;
     }
 #else
-    sec = rb_num2ll(rb_funcall2(obj, oj_tv_sec_id, 0, 0));
+    printf("*** does not have timespec\n");
+    {
+	volatile VALUE	rsec = rb_funcall2(obj, oj_tv_sec_id, 0, 0);
+	volatile VALUE	rstr = rb_funcall2(rsec, oj_to_s_id, 0, 0);
+
+	printf("*** rsec - class %s for %s\n", rb_obj_classname(rsec), StringValuePtr(rstr));
+	sec = rb_num2ll(rsec);
+    }
 #if HAS_NANO_TIME
     printf("*** has nano time\n");
     nsec = rb_num2ll(rb_funcall2(obj, oj_tv_nsec_id, 0, 0));
